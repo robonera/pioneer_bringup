@@ -1,25 +1,18 @@
 <launch>
 
     <arg name="controller" default="rosaria" doc="hardware driver controller: 'rosaria' or 'p2os'" />
-    <arg name="controller_port" default="/dev/ttyS0" doc="serial port to communicate with the controller. Should be '/dev/ttyS0' for COM1 port using the onboard computer, or '/dev/ttyUSB0' if using USB-Serial adapter with an external laptop" />
+
+    <arg name="controller_port" default="/dev/ttyUSB0" doc="serial port to communicate with the controller. Should be '/dev/ttyS0' for COM1 port using the onboard computer, or '/dev/ttyUSB0' if using USB-Serial adapter with an external laptop" />
+
     <arg name="sonar" default="false" doc="true to activate sonars (only for p2os controller)" />
-    <arg name="laser" default="false" doc="Laser reference code or 'false' if no laser (Possible laser references are: 'hokuyo', 'lms_1xx', 'lms_2xx', 'lms_1xxx', 'lms_4xxx', 'lms_5xx', 'mrs_1xxx', 'mrs_6xxx', 'rms_3xx', 'tim_5xx', 'tim_7xx', 'tim_7xxS')" />
-    <arg name="usbcam" default="false" doc="true to launch usbcam node" />
-    <arg name="kinect" default="false" doc="true to launch freenect Kinect node" />
-    <arg name="dashboard" default="false" doc="true to launch Pioneer_dashboard node" />
+    <arg name="laser" default="hokuyo" doc="Laser reference code or 'false' if no laser (Possible laser references are: 'hokuyo', 'lms_1xx', 'lms_2xx', 'lms_1xxx', 'lms_4xxx', 'lms_5xx', 'mrs_1xxx', 'mrs_6xxx', 'rms_3xx', 'tim_5xx', 'tim_7xx', 'tim_7xxS')" />
 
     <!-- laser specific configuration -->
     <arg name="laser_hostname" default="192.168.0.1" doc="Laser IP address or hostname (if applicable)" />
-    <arg name="laser_serial_port" default="/dev/ttyUSB0" doc="Laser Port (if applicable)" />
+    <arg name="laser_serial_port" default="/dev/ttyACM0" doc="Laser Port (if applicable)" />
     <arg name="laser_baselink_distance" default="0.13 0 0.39 0 0 0" doc="Distance between baselink and lidar in meters (for setting tf broadcast)" />
         
-    <!-- usb camera specific configuration -->
-    <arg name="camera_display" default="true" doc="Display video feed on the screen" />
-    <arg name="camera_port" default="/dev/video0" doc="USB Camera port" />
-
-    <!-- kinect specific configuration -->
-    <arg name="kinect_data_skip" default="0" doc="number of frames to skip from kinect data" />
-    <arg name="kinect_id" default="#1" doc="kinect device number" />
+    <arg name="dashboard" default="false" doc="use dashboard" />
 
     <!-- hardware controller -->
 	<group>
@@ -37,22 +30,6 @@
             <arg name="laser_serial_port" value="$(arg laser_serial_port)" />
             <arg name="laser_type" value="$(arg laser)" />
             <arg name="laser_baselink_distance" value="$(arg laser_baselink_distance)" />
-        </include>
-    </group>
-
-    <!-- usbcam -->
-    <group if="$(arg usbcam)">
-        <include file="$(find pioneer_bringup)/launch/camera.launch">
-            <arg name="camera_display" value="$(arg camera_display)" />
-            <arg name="camera_port" value="$(arg camera_port)" />
-        </include>
-    </group>
-
-    <!-- kinect -->
-    <group if="$(arg kinect)">
-        <include file="$(find freenect_launch)/launch/freenect.launch">
-            <arg name="data_skip" value="$(arg kinect_data_skip)" />
-            <arg name="device_id" value="$(arg kinect_id)" />
         </include>
     </group>
 

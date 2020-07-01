@@ -19,8 +19,6 @@
 
 		<include file="$(find urg_node)/launch/urg_lidar.launch" 
 				 if="$(eval arg('laser_type')=='hokuyo')">
-			<arg name="ip_address" value="$(arg laser_hostname)" />
-			<arg name="serial_port" value="$(arg laser_serial_port)" />
 		</include>
 
 		<include file="$(find sick_scan)/launch/sick_$(arg laser_type).launch" 
