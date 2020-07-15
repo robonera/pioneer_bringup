@@ -1,7 +1,7 @@
 <launch>
 
     <arg name="controller" default="rosaria" doc="hardware driver controller: 'rosaria' or 'p2os'" />
-    <arg name="port" default="/dev/ttyS0" doc="serial port to communicate with the controller. Should be '/dev/ttyS0' for COM1 port using the onboard computer, or '/dev/ttyUSB0' if using USB-Serial adapter with an external laptop" />
+    <arg name="port" default="/dev/ttyUSB0" doc="serial port to communicate with the controller. Should be '/dev/ttyS0' for COM1 port using the onboard computer, or '/dev/ttyUSB0' if using USB-Serial adapter with an external laptop" />
     <arg name="sonar" default="false" doc="true to activate sonars" />
     
     <!-- RosAia -->
